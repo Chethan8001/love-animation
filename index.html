@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Animation</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            overflow: hidden;
+        }
+        
+        .scene {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .person {
+            width: 100px;
+            height: 200px;
+            background: #222;
+            border-radius: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+            animation: movePerson 3s ease-in-out infinite alternate;
+        }
+
+        .person::before {
+            content: '';
+            width: 50px;
+            height: 50px;
+            background: #222;
+            border-radius: 50%;
+            position: absolute;
+            top: -30px;
+        }
+
+        .heart {
+            width: 50px;
+            height: 50px;
+            background: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            clip-path: polygon(50% 15%, 100% 40%, 80% 90%, 50% 100%, 20% 90%, 0% 40%);
+            animation: heartGrow 2s ease-in-out infinite alternate;
+            opacity: 0;
+        }
+
+        @keyframes movePerson {
+            from { transform: translateY(0); }
+            to { transform: translateY(-10px); }
+        }
+
+        @keyframes heartGrow {
+            from { transform: scale(0) translate(-50%, -50%); opacity: 0; }
+            to { transform: scale(1.2) translate(-50%, -50%); opacity: 1; }
+        }
+
+        .person:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .person:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💖 Enter Names to See the Magic 💖</h1>
+        <form id="nameForm">
+            <input type="text" id="boyName" placeholder="Boy's Name" required>
+            <input type="text" id="girlName" placeholder="Girl's Name" required>
+            <button class="button" type="submit">Show Love</button>
+        </form>
+
+        <div class="scene" id="loveScene">
+            <div class="person" id="boy"></div>
+            <div class="heart" id="heart"></div>
+            <div class="person" id="girl"></div>
+        </div>
+
+        <h2 id="nameDisplay"></h2>
+    </div>
+
+    <script>
+        document.getElementById("nameForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            let boyName = document.getElementById("boyName").value;
+            let girlName = document.getElementById("girlName").value;
+            
+            document.getElementById("nameDisplay").innerHTML = boyName + " ❤️ " + girlName;
+            document.getElementById("heart").style.opacity = "1";
+        });
+    </script>
+</body>
+</html>
